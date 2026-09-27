@@ -21,9 +21,9 @@ on:
     - cron: "20 18 * * *"
       timezone: "America/Lima"
 
-# Horarios específicos adicionales para Gemini (00:00 y 15:00 hora de Lima)
+    # Horarios específicos adicionales para Gemini (00:00 y 15:00 hora de Lima)
     - cron: "0 5 * * *"    # 00:00 Lima (05:00 UTC)
-    - cron: "0 20 * * *"   # 15:00 Lima (20:00 UTC)      
+    - cron: "0 20 * * *"   # 15:00 Lima (20:00 UTC)     
 
 jobs:
   refresh:
@@ -33,13 +33,7 @@ jobs:
     env:
       MONGODB_URI: ${{ secrets.MONGODB_URI }}
       MONGODB_DB_NAME: ${{ secrets.MONGODB_DB_NAME }}
-      COINSTATS_API_KEY: ${{ secrets.COINSTATS_API_KEY }}
-      MOBULA_API_KEY: ${{ secrets.MOBULA_API_KEY }}
-      #Api Key de Gemini
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-      TOP_N: "20"
-      HISTORY_DAYS: "730"
-      MODEL_MIN_ROWS: "180"
 
     steps:
       - uses: actions/checkout@v4
@@ -51,27 +45,11 @@ jobs:
 
       - run: python -m pip install -r requirements.txt
 
-      - name: Regular refresh
-        if: github.event_name == 'schedule' && github.event.schedule != '20 0 * * *'
-        run: python scripts/refresh.py
-
-      - name: Daily refresh
-        if: github.event_name == 'schedule' && github.event.schedule == '20 0 * * *'
-        run: python scripts/refresh.py --daily
-
-      - name: Manual regular
-        if: github.event_name == 'workflow_dispatch' && inputs.daily != 'true'
-        run: python scripts/refresh.py
-
-      - name: Manual daily
-        if: github.event_name == 'workflow_dispatch' && inputs.daily == 'true'
-        run: python scripts/refresh.py --daily
-
-      # 2. Ejecución en lote del Agente Gemini (Consume 1 sola petición)
+      # Ejecución directa del Agente Gemini usando los datos de MongoDB
       - name: Run Gemini Batch Agent
         run: python -m src.agents.batch_agent
 
-      # 3. Guardar cambios del JSON en el repositorio de GitHub
+      # Guardar cambios del JSON en el repositorio para Streamlit
       - name: Commit and push updated JSON
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
