@@ -1,70 +1,16 @@
 {
-  "fecha_actualizacion": "2026-09-27T19:48:48.480457+00:00",
+  "fecha_actualizacion": "2026-09-27T22:34:33.932331+00:00",
   "total_activos": 15,
   "cuota_consumida": "1 petición",
   "analisis_diario": [
     {
-      "coin_id": "whitebit",
-      "symbol": "WBT",
+      "coin_id": "ethereum",
+      "symbol": "ETH",
       "recomendacion": "VENDER",
-      "nivel_riesgo": "Alto",
-      "tendencia": "BAJISTA",
-      "resumen_ejecutivo": "Se proyecta una caída significativa del 28.49% en las próximas 24 horas, con tendencia bajista y sentimiento neutral.",
-      "justificacion": "La fuerte proyección de caída técnica sugiere reducir exposición de inmediato para evitar pérdidas severas de capital."
-    },
-    {
-      "coin_id": "hyperliquid",
-      "symbol": "HYPE",
-      "recomendacion": "VENDER",
-      "nivel_riesgo": "Alto",
-      "tendencia": "BAJISTA",
-      "resumen_ejecutivo": "Proyección fuertemente bajista con una caída estimada del 42.01% en su precio para las próximas 24 horas.",
-      "justificacion": "El riesgo de pérdida es extremadamente alto debido a la severa corrección proyectada a corto plazo."
-    },
-    {
-      "coin_id": "bitcoin",
-      "symbol": "BTC",
-      "recomendacion": "COMPRAR",
-      "nivel_riesgo": "Bajo",
-      "tendencia": "ALCISTA",
-      "resumen_ejecutivo": "Tendencia alcista moderada con un incremento proyectado del 1.01% en 24 horas y un precio objetivo de 84,868.79 USD.",
-      "justificacion": "Bitcoin muestra solidez y un crecimiento constante, consolidándose como una opción de compra segura y de bajo riesgo."
-    },
-    {
-      "coin_id": "rain",
-      "symbol": "RAIN",
-      "recomendacion": "COMPRAR",
-      "nivel_riesgo": "Alto",
-      "tendencia": "ALCISTA",
-      "resumen_ejecutivo": "Activo de baja capitalización con tendencia alcista y un incremento proyectado del 1.71%.",
-      "justificacion": "A pesar del rendimiento positivo proyectado, su bajo precio nominal implica una alta volatilidad, apta solo para perfiles de riesgo alto."
-    },
-    {
-      "coin_id": "zcash",
-      "symbol": "ZEC",
-      "recomendacion": "VENDER",
-      "nivel_riesgo": "Alto",
-      "tendencia": "BAJISTA",
-      "resumen_ejecutivo": "Fuerte tendencia bajista con una pérdida de valor proyectada del 60.00% en 24 horas.",
-      "justificacion": "La masiva devaluación esperada hace imperativo vender el activo para mitigar un colapso inminente en el portafolio."
-    },
-    {
-      "coin_id": "solana",
-      "symbol": "SOL",
-      "recomendacion": "MANTENER",
       "nivel_riesgo": "Medio",
       "tendencia": "BAJISTA",
-      "resumen_ejecutivo": "Tendencia bajista leve con una corrección estimada del 2.08% en las próximas 24 horas.",
-      "justificacion": "La corrección es menor para un activo de alta liquidez y utilidad; se sugiere mantener posiciones existentes a la espera de estabilización."
-    },
-    {
-      "coin_id": "wrapped-steth",
-      "symbol": "WSTETH",
-      "recomendacion": "MANTENER",
-      "nivel_riesgo": "Medio",
-      "tendencia": "BAJISTA",
-      "resumen_ejecutivo": "Se prevé una caída del 3.48% con tendencia bajista y sentimiento de mercado neutral.",
-      "justificacion": "Al ser un derivado de staking de Ethereum, la fluctuación es moderada, justificando mantener la posición sin incurrir en ventas de pánico."
+      "resumen_ejecutivo": "ETH muestra una tendencia bajista con un precio actual de 2,683.30 y una proyección a 24 horas de 2,629.07, lo que representa una caída estimada del 2.02%. El sentimiento de mercado es neutral sin noticias recientes.",
+      "justificacion": "Dado el pronóstico negativo a corto plazo y la ausencia de catalizadores alcistas en el sentimiento o noticias, se recomienda asegurar posiciones o vender para evitar la corrección."
     },
     {
       "coin_id": "wrapped-bitcoin",
@@ -72,26 +18,53 @@
       "recomendacion": "COMPRAR",
       "nivel_riesgo": "Bajo",
       "tendencia": "ALCISTA",
-      "resumen_ejecutivo": "Tendencia alcista con un incremento proyectado del 1.12%, replicando el comportamiento de Bitcoin.",
-      "justificacion": "Sigue la trayectoria positiva de BTC, lo que lo convierte en una opción de compra sólida y de bajo riesgo para finanzas descentralizadas."
+      "resumen_ejecutivo": "WBTC cotiza en 83,979.72 con una predicción alcista de 84,922.53 (1.12% de incremento). Presenta un perfil técnico positivo dentro de los activos de respaldo cripto principal.",
+      "justificacion": "La tendencia alcista moderada combinada con la solidez del activo principal lo convierte en una buena oportunidad de compra para el corto plazo."
     },
     {
-      "coin_id": "ethereum",
-      "symbol": "ETH",
-      "recomendacion": "MANTENER",
-      "nivel_riesgo": "Medio",
-      "tendencia": "BAJISTA",
-      "resumen_ejecutivo": "Tendencia bajista moderada con una corrección proyectada del 2.02% en 24 horas.",
-      "justificacion": "La caída proyectada es menor y entra dentro del rango de volatilidad normal de Ethereum, por lo que se recomienda mantener la posición."
-    },
-    {
-      "coin_id": "tron",
-      "symbol": "TRX",
+      "coin_id": "wrapped-steth",
+      "symbol": "WSTETH",
       "recomendacion": "VENDER",
       "nivel_riesgo": "Medio",
       "tendencia": "BAJISTA",
-      "resumen_ejecutivo": "Tendencia bajista con una caída proyectada del 3.91% en las próximas 24 horas.",
-      "justificacion": "La corrección técnica sugiere una toma de ganancias o salida temporal para evitar pérdidas menores a corto plazo."
+      "resumen_ejecutivo": "WSTETH registra un precio de 3,338.20 y se proyecta una baja de 3.48% hacia 3,222.12. El sentimiento se mantiene neutral.",
+      "justificacion": "La corrección proyectada supera el 3% en 24 horas, sugiriendo una salida temporal del activo hasta que estabilice su tendencia."
+    },
+    {
+      "coin_id": "rain",
+      "symbol": "RAIN",
+      "recomendacion": "COMPRAR",
+      "nivel_riesgo": "Alto",
+      "tendencia": "ALCISTA",
+      "resumen_ejecutivo": "RAIN muestra un precio actual de 0.0134 y un incremento proyectado del 1.71% a 0.0136. Es un activo de menor capitalización y mayor volatilidad.",
+      "justificacion": "A pesar de su perfil de riesgo alto, la tendencia alcista proyectada ofrece una oportunidad de ganancia a corto plazo para inversores tolerantes al riesgo."
+    },
+    {
+      "coin_id": "zcash",
+      "symbol": "ZEC",
+      "recomendacion": "VENDER",
+      "nivel_riesgo": "Alto",
+      "tendencia": "BAJISTA",
+      "resumen_ejecutivo": "ZEC presenta una caída drástica proyectada del 60.00%, pasando de un precio actual de 1,565.73 a 626.28. Sentimiento neutral y sin noticias de soporte.",
+      "justificacion": "Una señal bajista de esta magnitud exige una venta inmediata o liquidación de posiciones para prevenir pérdidas catastróficas de capital."
+    },
+    {
+      "coin_id": "solana",
+      "symbol": "SOL",
+      "recomendacion": "VENDER",
+      "nivel_riesgo": "Medio",
+      "tendencia": "BAJISTA",
+      "resumen_ejecutivo": "SOL cotiza en 121.04 con una expectativa de descenso del 2.08% hacia los 118.52. Indicadores técnicos de corto plazo apuntan a la baja.",
+      "justificacion": "El sesgo bajista y la falta de impulso en el sentimiento sugieren esperar una mejor zona de entrada en el futuro."
+    },
+    {
+      "coin_id": "whitebit",
+      "symbol": "WBT",
+      "recomendacion": "VENDER",
+      "nivel_riesgo": "Alto",
+      "tendencia": "BAJISTA",
+      "resumen_ejecutivo": "WBT muestra una fuerte corrección estimada del 28.49%, cayendo desde 83.80 hasta los 59.92 en las próximas 24 horas.",
+      "justificacion": "La severidad de la caída proyectada hace que mantener el activo sea altamente desaconsejable."
     },
     {
       "coin_id": "binance-coin",
@@ -99,17 +72,26 @@
       "recomendacion": "MANTENER",
       "nivel_riesgo": "Bajo",
       "tendencia": "ESTABLE",
-      "resumen_ejecutivo": "Tendencia estable con una variación mínima proyectada de -0.38%.",
-      "justificacion": "El activo muestra una alta resiliencia y estabilidad en su precio, ideal para mantener en el portafolio como reserva de valor."
+      "resumen_ejecutivo": "BNB se mantiene prácticamente plano con una ligera variación del -0.38%, cotizando alrededor de 770.88 y un pronóstico de 767.98.",
+      "justificacion": "Al encontrarse en una fase de estabilidad sin movimientos drásticos esperados, lo prudente es mantener la posición actual."
     },
     {
-      "coin_id": "staked-ether",
-      "symbol": "STETH",
-      "recomendacion": "MANTENER",
+      "coin_id": "tron",
+      "symbol": "TRX",
+      "recomendacion": "VENDER",
       "nivel_riesgo": "Medio",
       "tendencia": "BAJISTA",
-      "resumen_ejecutivo": "Tendencia bajista muy leve con una corrección proyectada del 0.66%.",
-      "justificacion": "La variación es insignificante, manteniendo la paridad y el valor del staking de Ethereum a largo plazo sin alteraciones graves."
+      "resumen_ejecutivo": "TRX registra una tendencia bajista con una caída estimada del 3.91%, proyectando un precio de 0.323 desde los 0.337 actuales.",
+      "justificacion": "La pérdida de valor esperada en el corto plazo justifica la venta o rotación de capital hacia activos con mejor momento."
+    },
+    {
+      "coin_id": "wrapped-beacon-eth",
+      "symbol": "WBETH",
+      "recomendacion": "VENDER",
+      "nivel_riesgo": "Medio",
+      "tendencia": "BAJISTA",
+      "resumen_ejecutivo": "WBETH muestra un descenso estimado de 2.96%, pasando de 2,963.62 a 2,876.00 con un sentimiento de mercado neutral.",
+      "justificacion": "Siguiendo el comportamiento general del ecosistema Ethereum, se proyecta una baja que aconseja no mantener exposición a corto plazo."
     },
     {
       "coin_id": "dogecoin",
@@ -117,26 +99,44 @@
       "recomendacion": "COMPRAR",
       "nivel_riesgo": "Alto",
       "tendencia": "ALCISTA",
-      "resumen_ejecutivo": "Tendencia alcista con un incremento proyectado del 0.68% en un entorno neutral.",
-      "justificacion": "Muestra señales de recuperación a corto plazo, aunque su naturaleza de memecoin mantiene el riesgo elevado para los inversores."
+      "resumen_ejecutivo": "DOGE presenta un precio actual de 0.097 y una proyección al alza de 0.68% hacia 0.0978. Activo altamente especulativo.",
+      "justificacion": "La tendencia a corto plazo es favorable, permitiendo capturar pequeños movimientos alcistas bajo una gestión de riesgo estricta."
     },
     {
-      "coin_id": "wrapped-beacon-eth",
-      "symbol": "WBETH",
+      "coin_id": "staked-ether",
+      "symbol": "STETH",
       "recomendacion": "MANTENER",
-      "nivel_riesgo": "Medio",
+      "nivel_riesgo": "Bajo",
       "tendencia": "BAJISTA",
-      "resumen_ejecutivo": "Tendencia bajista con una corrección estimada del 2.96% en 24 horas.",
-      "justificacion": "Sigue de cerca el comportamiento de Ethereum; la caída es moderada y no justifica una venta, siendo preferible mantener el activo."
+      "resumen_ejecutivo": "STETH cotiza en 2,682.87 con una leve baja proyectada del 0.66% a 2,665.10. El movimiento es marginal.",
+      "justificacion": "Dado que la variación esperada es mínima y forma parte de estrategias de staking a largo plazo, no es necesario liquidar."
+    },
+    {
+      "coin_id": "hyperliquid",
+      "symbol": "HYPE",
+      "recomendacion": "VENDER",
+      "nivel_riesgo": "Alto",
+      "tendencia": "BAJISTA",
+      "resumen_ejecutivo": "HYPE experimenta una fuerte señal bajista con una baja proyectada del 42.01%, reduciéndose de 91.56 a 53.10.",
+      "justificacion": "Una caída estimada tan drástica requiere la venta inmediata para proteger el capital de pérdidas severas."
     },
     {
       "coin_id": "ripple",
       "symbol": "XRP",
-      "recomendacion": "MANTENER",
+      "recomendacion": "VENDER",
       "nivel_riesgo": "Medio",
       "tendencia": "BAJISTA",
-      "resumen_ejecutivo": "Tendencia bajista con una caída proyectada del 2.84% en las próximas 24 horas.",
-      "justificacion": "La corrección es moderada y típica del mercado; se recomienda mantener a la espera de un soporte técnico claro en el precio."
+      "resumen_ejecutivo": "XRP muestra un precio de 1.52 y una proyección bajista del 2.84% hacia 1.48, con un sentimiento neutral.",
+      "justificacion": "Los indicadores técnicos anticipan una contracción a corto plazo, por lo que se recomienda venta táctica."
+    },
+    {
+      "coin_id": "bitcoin",
+      "symbol": "BTC",
+      "recomendacion": "COMPRAR",
+      "nivel_riesgo": "Bajo",
+      "tendencia": "ALCISTA",
+      "resumen_ejecutivo": "BTC cotiza en 84,018.02 con una proyección de crecimiento del 1.01% hacia 84,868.79. Mantiene la tendencia principal de respaldo del mercado.",
+      "justificacion": "La fortaleza técnica y la proyección alcista reafirman a Bitcoin como una opción sólida de compra para mantener en cartera."
     }
   ]
 }
