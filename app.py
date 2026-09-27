@@ -246,62 +246,62 @@ else:
 st.markdown("<br>", unsafe_allow_html=True)
 
 # =========================================================
-# 3. GRÁFICO XGBOOST Y ÚLTIMAS NOTICIAS (LAYOUT COLUMNAS)
+# 3. GRÁFICO HISTÓRICO Y PREDICCIÓN XGBOOST
 # =========================================================
-with c_chart:
-    st.markdown(f"<div class='section-title'>Comportamiento Histórico y Predicción XGBoost</div>", unsafe_allow_html=True)
-    hist = history(coin_id)
-    pred = latest_prediction(coin_id)
+st.markdown(f"<div class='section-title'>Comportamiento Histórico y Predicción XGBoost</div>", unsafe_allow_html=True)
 
-    if not hist.empty:
-        hist["date"] = pd.to_datetime(hist["date"], utc=True)
-        hist = hist.sort_values("date").tail(range_days)
-        
-        fig = go.Figure()
-        # Línea de precio real (Azul)
+hist = history(coin_id)
+pred = latest_prediction(coin_id)
+
+if not hist.empty:
+    hist["date"] = pd.to_datetime(hist["date"], utc=True)
+    hist = hist.sort_values("date").tail(range_days)
+    
+    fig = go.Figure()
+    # Línea de precio real (Azul)
+    fig.add_trace(go.Scatter(
+        x=hist["date"], y=hist["price"], 
+        mode="lines", name="Precio Real", 
+        line=dict(color="#1E3A8A", width=2.5)
+    ))
+    
+    # Línea de predicción (Mostaza)
+    if pred:
+        last_date = hist["date"].max()
         fig.add_trace(go.Scatter(
-            x=hist["date"], y=hist["price"], 
-            mode="lines", name="Precio Real", 
-            line=dict(color="#1E3A8A", width=2.5)
+            x=[last_date, pd.to_datetime(pred["target_time"], utc=True)],
+            y=[float(pred["current_price"]), float(pred["predicted_close_24h"])],
+            mode="lines+markers", name="Pronóstico XGBoost",
+            line=dict(dash="dash", color="#EAB308", width=3),
+            marker=dict(size=8)
         ))
-        
-        # Línea de predicción (Mostaza)
-        if pred:
-            last_date = hist["date"].max()
-            fig.add_trace(go.Scatter(
-                x=[last_date, pd.to_datetime(pred["target_time"], utc=True)],
-                y=[float(pred["current_price"]), float(pred["predicted_close_24h"])],
-                mode="lines+markers", name="Pronóstico XGBoost",
-                line=dict(dash="dash", color="#EAB308", width=3),
-                marker=dict(size=8)
-            ))
-        
-        # Corrección de fondo, colores y eliminación de etiquetas extra
-        fig.update_layout(
-            template="plotly_white",
-            paper_bgcolor="rgba(0,0,0,0)",
-            plot_bgcolor="rgba(0,0,0,0)",
-            font=dict(color="#0F172A"),
-            height=450, 
-            margin=dict(l=10, r=10, t=30, b=10),
-            hovermode="x unified",
-            showlegend=False, # Oculta la leyenda derecha para un look más limpio
-            xaxis=dict(
-                showgrid=False,
-                title="", # Quita la etiqueta del eje X
-                tickfont=dict(color="#64748B")
-            ), 
-            yaxis=dict(
-                showgrid=True, 
-                gridcolor="#E2E8F0",
-                title="", # Quita la etiqueta del eje Y
-                tickfont=dict(color="#64748B"),
-                zeroline=False
-            )
+    
+    # Corrección de fondo, colores y eliminación de etiquetas extra
+    fig.update_layout(
+        template="plotly_white",
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        font=dict(color="#0F172A"),
+        height=450, 
+        margin=dict(l=10, r=10, t=30, b=10),
+        hovermode="x unified",
+        showlegend=False, # Oculta la leyenda derecha para un look más limpio
+        xaxis=dict(
+            showgrid=False,
+            title="", # Quita la etiqueta del eje X
+            tickfont=dict(color="#64748B")
+        ), 
+        yaxis=dict(
+            showgrid=True, 
+            gridcolor="#E2E8F0",
+            title="", # Quita la etiqueta del eje Y
+            tickfont=dict(color="#64748B"),
+            zeroline=False
         )
-        st.plotly_chart(fig, use_container_width=True)
-    else:
-        st.info("Sin datos históricos.")
+    )
+    st.plotly_chart(fig, use_container_width=True)
+else:
+    st.info("Sin datos históricos.")
 
 # =========================================================
 # 4. ANÁLISIS DE SENTIMIENTO (SOLO GRÁFICO DE DONA FILTRADO)
