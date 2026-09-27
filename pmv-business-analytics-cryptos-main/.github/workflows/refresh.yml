@@ -1,0 +1,62 @@
+name: Crypto Analytics - Refresh
+
+on:
+  workflow_dispatch:
+    inputs:
+      daily:
+        description: "Historico + reentrenamiento"
+        required: false
+        default: "false"
+
+  schedule:
+    - cron: "20 0 * * *"
+      timezone: "America/Lima"
+
+    - cron: "20 6 * * *"
+      timezone: "America/Lima"
+
+    - cron: "20 12 * * *"
+      timezone: "America/Lima"
+
+    - cron: "20 18 * * *"
+      timezone: "America/Lima"
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    env:
+      MONGODB_URI: ${{ secrets.MONGODB_URI }}
+      MONGODB_DB_NAME: ${{ secrets.MONGODB_DB_NAME }}
+      COINSTATS_API_KEY: ${{ secrets.COINSTATS_API_KEY }}
+      MOBULA_API_KEY: ${{ secrets.MOBULA_API_KEY }}
+      TOP_N: "20"
+      HISTORY_DAYS: "730"
+      MODEL_MIN_ROWS: "180"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - run: python -m pip install -r requirements.txt
+
+      - name: Regular refresh
+        if: github.event_name == 'schedule' && github.event.schedule != '20 0 * * *'
+        run: python scripts/refresh.py
+
+      - name: Daily refresh
+        if: github.event_name == 'schedule' && github.event.schedule == '20 0 * * *'
+        run: python scripts/refresh.py --daily
+
+      - name: Manual regular
+        if: github.event_name == 'workflow_dispatch' && inputs.daily != 'true'
+        run: python scripts/refresh.py
+
+      - name: Manual daily
+        if: github.event_name == 'workflow_dispatch' && inputs.daily == 'true'
+        run: python scripts/refresh.py --daily
