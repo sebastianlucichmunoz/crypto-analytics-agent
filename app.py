@@ -322,7 +322,7 @@ with c_news:
             )
     else:
         st.info(f"No hay noticias recientes de {name}.")
-        
+
 # =========================================================
 # 4. ANÁLISIS DE SENTIMIENTO (SOLO GRÁFICO DE DONA FILTRADO)
 # =========================================================
@@ -349,11 +349,11 @@ if not coin_news_df.empty:
     s2.metric("Impacto Positivo", f"{pos_pct:.1f}%")
     s3.metric("Impacto Negativo", f"{neg_pct:.1f}%")
 
-    # Contabilizar el sentimiento
+# Contabilizar el sentimiento
     counts = coin_news_df["sentiment_label"].value_counts().rename_axis("sentiment").reset_index(name="count")
     color_map = {"POSITIVO": "#10B981", "NEGATIVO": "#EF4444", "NEUTRAL": "#94A3B8"}
     
-    # Creamos SOLO el gráfico de dona
+    # Creamos el gráfico de dona
     fig = px.pie(
         counts, 
         names="sentiment", 
@@ -362,8 +362,42 @@ if not coin_news_df.empty:
         title=f"Distribución de Impacto para {name} ({symbol})", 
         color="sentiment", 
         color_discrete_map=color_map,
-        template="plotly_white" # Fuerza el tema claro
+        template="plotly_white"
     )
+    
+    # AGRANDAR LOS NÚMEROS DE LOS PORCENTAJES EN LA DONA
+    fig.update_traces(
+        textinfo="percent+label", 
+        textfont=dict(size=14, family="Arial", color="white") # Tamaño y color de fuente dentro de la dona
+    )
+    
+    # PONE EN NEGRITA LA LEYENDA DEL SENTIMIENTO Y CONFIGURA EL ESTILO
+    fig.update_layout(
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        font=dict(color="#0F172A"),
+        height=400, 
+        margin=dict(t=40, b=10, l=10, r=10),
+        legend=dict(
+            font=dict(size=13, color="#0F172A"), # Tamaño de la leyenda lateral
+            title=dict(font=dict(size=14, color="#0F172A"))
+        )
+    )
+    
+    # Forzamos mediante CSS de inyección rápida que la leyenda de Plotly use Negrita (Bold)
+    st.markdown("""
+    <style>
+    /* Pone la leyenda del gráfico de Plotly en negrita */
+    .g-gtitle text, .legendtext {
+        font-weight: 700 !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    # Lo mostramos centrado
+    _, col_center, _ = st.columns([1, 2, 1])
+    with col_center:
+        st.plotly_chart(fig, use_container_width=True)
     
     # Aseguramos que el fondo del gráfico sea transparente para que combine con el dashboard
     fig.update_layout(
