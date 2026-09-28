@@ -10,7 +10,6 @@ def extraer_datos_consolidados():
     """
     db = get_db()
     
-    # 1. Obtener las últimas predicciones por moneda usando una agregación en lote
     pipeline_preds = [
         {"$sort": {"predicted_at": -1}},
         {
@@ -27,7 +26,6 @@ def extraer_datos_consolidados():
     ]
     preds_raw = list(db.predictions.aggregate(pipeline_preds))
     
-    # Map para consolidar datos fácilmente por coin_id
     mercado_consolidado = {}
     for p in preds_raw:
         coin_id = p["_id"]
@@ -45,7 +43,6 @@ def extraer_datos_consolidados():
             "news_count": 0
         }
 
-    # 2. Obtener el sentimiento promedio acumulado de noticias (últimas 24h)
     hace_24h = datetime.now(timezone.utc) - timedelta(hours=24)
     pipeline_news = [
         {"$match": {"published_at": {"$gte": hace_24h}}},
@@ -59,7 +56,6 @@ def extraer_datos_consolidados():
     ]
     news_raw = list(db.news.aggregate(pipeline_news))
     
-    # Cruzar noticias con el diccionario consolidado
     for n in news_raw:
         coin_id = n["_id"]
         if coin_id in mercado_consolidado:
@@ -75,10 +71,8 @@ def extraer_datos_consolidados():
                 label = "NEUTRAL"
             mercado_consolidado[coin_id]["sentiment_label"] = label
 
-    # Convertir a lista de dicts
     datos_finales = list(mercado_consolidado.values())
 
-    # Opcional: guardar copia local de respaldo
     os.makedirs("data", exist_ok=True)
     with open("data/latest_market_data.json", "w", encoding="utf-8") as f:
         json.dump(datos_finales, f, ensure_ascii=False, indent=2)

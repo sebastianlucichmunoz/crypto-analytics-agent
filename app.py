@@ -6,7 +6,6 @@ import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 
-# Cargar credenciales desde Streamlit Secrets si existen
 for key in ("MONGODB_URI", "MONGODB_DB_NAME"):
     try:
         if key in st.secrets and not os.getenv(key):
@@ -29,7 +28,7 @@ st.set_page_config(
 )
 
 # ==========================================
-# CSS A MEDIDA - TEMA ELABORADO (Negro, Mostaza, Azul, Blanco)
+# CSS 
 # ==========================================
 st.markdown("""
 <style>
@@ -131,7 +130,6 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Conexión a MongoDB
 try:
     ping()
 except Exception as exc:
@@ -176,11 +174,10 @@ range_days = st.sidebar.selectbox(
 st.sidebar.caption("")
 
 # =========================================================
-# 1. DATOS REALES DE LA MONEDA FILTRADA (NUEVA SECCIÓN CENTRADA)
+# 1. DATOS  DE LA MONEDA
 # =========================================================
 st.markdown(f"<div align='center'><h2 style='color: #0F172A; font-weight: 800;'>Métricas en Tiempo Real: {name} ({symbol})</h2></div>", unsafe_allow_html=True)
-
-# Calculamos un sentimiento específico para la moneda si hay noticias
+s
 coin_news_df = news_for_coin(coin_id, 250)
 if not coin_news_df.empty:
     coin_news_df["sentiment_compound"] = pd.to_numeric(coin_news_df["sentiment_compound"], errors="coerce")
@@ -189,7 +186,6 @@ if not coin_news_df.empty:
 else:
     coin_sent_label = "Sin datos"
 
-# Fila centrada con columnas proporcionales
 _, c_m1, c_m2, c_m3, c_m4, _ = st.columns([0.5, 1, 1, 1, 1, 0.5])
 c_m1.metric("Precio Actual", f"${float(selected.get('price') or 0):,.4f}")
 c_m2.metric("Volumen 24h", f"${float(selected.get('volume_24h') or 0)/1e6:,.1f} M")
@@ -211,8 +207,6 @@ if rec_data and "analisis_diario" in rec_data:
         rec = dictamen_activo.get("recomendacion", "N/A")
         riesgo = dictamen_activo.get("nivel_riesgo", "N/A")
         tendencia = dictamen_activo.get("tendencia", "N/A")
-        
-        # Color dinámico
         color_hex = "#10B981" if rec == "COMPRAR" else ("#EF4444" if rec == "VENDER" else "#F59E0B")
 
         st.markdown(f"""
@@ -246,12 +240,12 @@ else:
 st.markdown("<br>", unsafe_allow_html=True)
 
 # =========================================================
-# 3. GRÁFICO XGBOOST Y ÚLTIMAS NOTICIAS (LAYOUT COLUMNAS)
+# 3. GRÁFICO
 # =========================================================
 c_chart, c_news = st.columns([1.8, 1], gap="large")
 
 with c_chart:
-    st.markdown(f"<div class='section-title'>Comportamiento Histórico y Predicción XGBoost</div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='section-title'>Comportamiento Histórico de la moneda</div>", unsafe_allow_html=True)
     hist = history(coin_id)
     pred = latest_prediction(coin_id)
 
@@ -260,14 +254,12 @@ with c_chart:
         hist = hist.sort_values("date").tail(range_days)
         
         fig = go.Figure()
-        # Línea de precio real (Azul)
         fig.add_trace(go.Scatter(
             x=hist["date"], y=hist["price"], 
             mode="lines", name="Precio Real", 
             line=dict(color="#1E3A8A", width=2.5)
         ))
         
-        # Línea de predicción (Mostaza)
         if pred:
             last_date = hist["date"].max()
             fig.add_trace(go.Scatter(
@@ -277,8 +269,7 @@ with c_chart:
                 line=dict(dash="dash", color="#EAB308", width=3),
                 marker=dict(size=8)
             ))
-        
-        # Corrección de fondo, colores y eliminación de etiquetas extra
+    
         fig.update_layout(
             template="plotly_white",
             paper_bgcolor="rgba(0,0,0,0)",
@@ -287,16 +278,16 @@ with c_chart:
             height=450, 
             margin=dict(l=10, r=10, t=30, b=10),
             hovermode="x unified",
-            showlegend=False, # Oculta la leyenda derecha para un look más limpio
+            showlegend=False, 
             xaxis=dict(
                 showgrid=False,
-                title="", # Quita la etiqueta del eje X
+                title="", 
                 tickfont=dict(color="#64748B")
             ), 
             yaxis=dict(
                 showgrid=True, 
                 gridcolor="#E2E8F0",
-                title="", # Quita la etiqueta del eje Y
+                title="", 
                 tickfont=dict(color="#64748B"),
                 zeroline=False
             )
@@ -306,7 +297,7 @@ with c_chart:
         st.info("Sin datos históricos.")
 
 with c_news:
-    st.markdown(f"<div class='section-title'>Últimas Señales Detectadas</div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='section-title'>Últimas Noticias de la Moneda Detectadas</div>", unsafe_allow_html=True)
     if not coin_news_df.empty:
         latest = coin_news_df.sort_values("published_at", ascending=False).head(8)
         for _, r in latest.iterrows():
@@ -324,13 +315,11 @@ with c_news:
         st.info(f"No hay noticias recientes de {name}.")
 
 # =========================================================
-# 4. ANÁLISIS DE SENTIMIENTO (SOLO GRÁFICO DE DONA FILTRADO)
+# 4. ANÁLISIS DE SENTIMIENTO
 # =========================================================
 st.markdown("<div class='section-title'>4. Análisis de Sentimiento en Noticias</div>", unsafe_allow_html=True)
 
-# Cargamos todas las noticias y forzamos el filtro localmente por nombre o símbolo
 all_news = news_cached()
-# Filtro estricto para asegurar que la dona refleje SOLO a la moneda seleccionada
 coin_news_df = all_news[
     all_news['title'].str.contains(name, case=False, na=False) | 
     all_news['title'].str.contains(symbol, case=False, na=False)
@@ -349,11 +338,11 @@ if not coin_news_df.empty:
     s2.metric("Impacto Positivo", f"{pos_pct:.1f}%")
     s3.metric("Impacto Negativo", f"{neg_pct:.1f}%")
 
-    # Contabilizar el sentimiento
+
     counts = coin_news_df["sentiment_label"].value_counts().rename_axis("sentiment").reset_index(name="count")
     color_map = {"POSITIVO": "#10B981", "NEGATIVO": "#EF4444", "NEUTRAL": "#94A3B8"}
     
-    # Creamos el gráfico de dona
+
     fig = px.pie(
         counts, 
         names="sentiment", 
@@ -365,13 +354,13 @@ if not coin_news_df.empty:
         template="plotly_white"
     )
     
-    # AGRANDAR LOS NÚMEROS DE LOS PORCENTAJES EN LA DONA
+
     fig.update_traces(
         textinfo="percent+label", 
         textfont=dict(size=14, family="Arial", color="white")
     )
     
-    # CONFIGURACIÓN DE ESTILO Y TRANSPARENCIA
+  
     fig.update_layout(
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
@@ -384,7 +373,6 @@ if not coin_news_df.empty:
         )
     )
     
-    # Inyección CSS rápida para asegurar leyendas en negrita
     st.markdown("""
     <style>
     .g-gtitle text, .legendtext {
@@ -393,7 +381,6 @@ if not coin_news_df.empty:
     </style>
     """, unsafe_allow_html=True)
 
-    # Lo mostramos centrado una sola vez
     _, col_center, _ = st.columns([1, 2, 1])
     with col_center:
         st.plotly_chart(fig, use_container_width=True)

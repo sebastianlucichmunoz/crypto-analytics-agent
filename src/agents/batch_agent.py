@@ -12,7 +12,6 @@ load_dotenv()
 
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
-# Lista de modelos a probar en orden si el servidor principal está saturado (503)
 MODELOS_A_PROBAR = ["gemini-3.5-flash", "gemini-3.5-flash-lite"]
 
 
@@ -62,7 +61,7 @@ def analizar_mercado_en_lote(lista_monedas: list):
         except Exception as e:
             if "503" in str(e):
                 print(
-                    f"⚠️ El modelo '{modelo}' está saturado (503). Probando con"
+                    f"El modelo '{modelo}' está saturado (503). Probando con"
                     " el modelo de respaldo..."
                 )
                 time.sleep(5)
@@ -76,15 +75,15 @@ def analizar_mercado_en_lote(lista_monedas: list):
 
 
 def ejecutar_proceso_diario():
-    print("📥 [Paso 1] Extrayendo datos consolidados desde MongoDB Atlas...")
+    print("[Paso 1] Extrayendo datos consolidados desde MongoDB Atlas...")
     lista_monedas = extraer_datos_consolidados()
 
     if not lista_monedas:
-        print("⚠️ No se encontraron datos para procesar hoy.")
+        print("No se encontraron datos para procesar hoy.")
         return
 
     print(
-        f"📊 [Paso 2] Consolidados {len(lista_monedas)} activos. Procesando"
+        f"[Paso 2] Consolidados {len(lista_monedas)} activos. Procesando"
         " análisis en LOTE..."
     )
 
@@ -106,14 +105,14 @@ def ejecutar_proceso_diario():
                 json.dump(reporte_final, f, ensure_ascii=False, indent=2)
 
             print(
-                "\n🎉 ¡Proceso completado con éxito!"
-                f"\n📁 Resultados guardados en: '{ruta_salida}'"
+                "\n¡Proceso completado con éxito!"
+                f"\nResultados guardados en: '{ruta_salida}'"
             )
             break
 
         except Exception as e:
             print(
-                f"⚠️ Error al procesar en lote (Intento {intento}/3): {e}."
+                f" Error al procesar en lote (Intento {intento}/3): {e}."
                 " Esperando 30 segundos..."
             )
             time.sleep(30)
