@@ -1,88 +1,16 @@
 {
-  "fecha_actualizacion": "2026-09-28T04:46:33.978723+00:00",
+  "fecha_actualizacion": "2026-09-28T19:32:15.883796+00:00",
   "total_activos": 15,
   "cuota_consumida": "1 petición",
   "analisis_diario": [
     {
-      "coin_id": "dogecoin",
-      "symbol": "DOGE",
-      "recomendacion": "COMPRAR",
-      "nivel_riesgo": "Alto",
-      "tendencia": "ALCISTA",
-      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $0.0978 USD, con una variación positiva del 0.68%.",
-      "justificacion": "Dogecoin muestra una ligera tendencia alcista respaldada por un mercado neutral. Al ser una criptomoneda muy volátil, presenta un nivel de riesgo alto, pero la pequeña subida estimada a corto plazo sugiere una oportunidad interesante para operaciones rápidas o especulativas, siempre y cuando inviertas dinero que estés dispuesto a arriesgar."
-    },
-    {
-      "coin_id": "hyperliquid",
-      "symbol": "HYPE",
-      "recomendacion": "VENDER",
-      "nivel_riesgo": "Alto",
-      "tendencia": "BAJISTA",
-      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $53.0958 USD, con una caída drástica y una variación negativa del -42.01%.",
-      "justificacion": "Las proyecciones apuntan a un desplome muy fuerte en el valor de este activo. Mantener esta moneda en este momento representa un riesgo inaceptable para tu capital debido a la tendencia bajista tan agresiva, por lo que lo más prudente y recomendado es salir de tu posición para evitar mayores pérdidas."
-    },
-    {
-      "coin_id": "staked-ether",
-      "symbol": "STETH",
-      "recomendacion": "MANTENER",
-      "nivel_riesgo": "Medio",
-      "tendencia": "BAJISTA",
-      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $2665.0974 USD, con una leve variación negativa del -0.66%.",
-      "justificacion": "Aunque presenta una tendencia ligeramente a la baja para el día de mañana, la variación es mínima. Si ya tienes este activo invertido a largo plazo o generando rendimientos por staking, no hay motivo para entrar en pánico; es mejor mantener la calma y conservar tu inversión esperando que el mercado se recupere."
-    },
-    {
-      "coin_id": "ripple",
-      "symbol": "XRP",
+      "coin_id": "wrapped-beacon-eth",
+      "symbol": "WBETH",
       "recomendacion": "VENDER",
       "nivel_riesgo": "Medio",
       "tendencia": "BAJISTA",
-      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $1.4806 USD, con una variación negativa del -2.84%.",
-      "justificacion": "XRP se encuentra en una trayectoria bajista moderada a corto plazo. Si buscabas ganancias rápidas, este no es el momento ideal para quedarte con el activo, ya que las condiciones actuales sugieren que el precio podría seguir corrigiendo a la baja en las siguientes horas, haciendo aconsejable asegurar lo que tienes."
-    },
-    {
-      "coin_id": "bitcoin",
-      "symbol": "BTC",
-      "recomendacion": "COMPRAR",
-      "nivel_riesgo": "Medio",
-      "tendencia": "ALCISTA",
-      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $84868.7891 USD, con una variación positiva del 1.01%.",
-      "justificacion": "Bitcoin mantiene su fortaleza con una tendencia alcista constante y saludable. Respaldado por la confianza general del mercado, este activo es la opción más sólida para invertir de forma relativamente segura dentro del mundo cripto, siendo un excelente momento para sumar por su proyección positiva a corto plazo."
-    },
-    {
-      "coin_id": "wrapped-bitcoin",
-      "symbol": "WBTC",
-      "recomendacion": "COMPRAR",
-      "nivel_riesgo": "Medio",
-      "tendencia": "ALCISTA",
-      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $84922.5313 USD, con una variación positiva del 1.12%.",
-      "justificacion": "Al estar vinculado directamente al movimiento y valor de Bitcoin, hereda su misma fortaleza y proyección alcista. Es una excelente alternativa si quieres aprovechar el crecimiento del rey de las criptomonedas con una expectativa favorable de ganancia para las próximas horas."
-    },
-    {
-      "coin_id": "wrapped-steth",
-      "symbol": "WSTETH",
-      "recomendacion": "VENDER",
-      "nivel_riesgo": "Medio",
-      "tendencia": "BAJISTA",
-      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $3222.1182 USD, con una variación negativa del -3.48%.",
-      "justificacion": "El activo muestra un retroceso notable en su cotización proyectada. Las condiciones de mercado desfavorecen su tenencia a corto plazo, por lo que si deseas evitar caídas adicionales en el valor de tus fondos, se aconseja considerar la venta o conversión preventiva."
-    },
-    {
-      "coin_id": "ethereum",
-      "symbol": "ETH",
-      "recomendacion": "VENDER",
-      "nivel_riesgo": "Medio",
-      "tendencia": "BAJISTA",
-      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $2629.0723 USD, con una variación negativa del -2.02%.",
-      "justificacion": "Ethereum enfrenta un freno temporal con una tendencia bajista marcada para el corto plazo. Aunque es un proyecto fundamental en el ecosistema, las condiciones actuales no apoyan una compra inmediata y sugieren esperar a que el precio toque fondo antes de volver a posicionarse."
-    },
-    {
-      "coin_id": "rain",
-      "symbol": "RAIN",
-      "recomendacion": "COMPRAR",
-      "nivel_riesgo": "Alto",
-      "tendencia": "ALCISTA",
-      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $0.0137 USD, con una variación positiva del 1.71%.",
-      "justificacion": "Rain presenta una de las proyecciones alcistas porcentualmente más atractivas entre las monedas de menor valor. Si buscas diversificar con activos especulativos y tienes alta tolerancia al riesgo, este pequeño impulso puede representar una oportunidad interesante de ganancia."
+      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $2,875.99 USD, con una variación de -2.96%.",
+      "justificacion": "Las condiciones del mercado muestran una tendencia bajista clara que desaconseja mantener este activo a corto plazo. La proyección indica un retroceso en su valor, por lo que es prudente evaluar la salida para evitar mayores pérdidas mientras el mercado corrige."
     },
     {
       "coin_id": "zcash",
@@ -90,35 +18,8 @@
       "recomendacion": "VENDER",
       "nivel_riesgo": "Alto",
       "tendencia": "BAJISTA",
-      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $626.2802 USD, con una caída drástica y una variación negativa del -60.00%.",
-      "justificacion": "Estamos ante una señal de alerta roja extrema. Una predicción de desplome del 60% desaconseja totalmente mantener este activo en tu cartera; es fundamental vender o liquidar de inmediato para proteger tu dinero de pérdidas catastróficas."
-    },
-    {
-      "coin_id": "solana",
-      "symbol": "SOL",
-      "recomendacion": "VENDER",
-      "nivel_riesgo": "Alto",
-      "tendencia": "BAJISTA",
-      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $118.5212 USD, con una variación negativa del -2.08%.",
-      "justificacion": "Solana muestra debilidad a corto plazo con una tendencia bajista que podría intensificarse. Dado que es un activo volátil, lo más sensato ante esta proyección negativa es no arriesgar capital nuevo y considerar una salida temporal."
-    },
-    {
-      "coin_id": "whitebit",
-      "symbol": "WBT",
-      "recomendacion": "VENDER",
-      "nivel_riesgo": "Alto",
-      "tendencia": "BAJISTA",
-      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $59.9249 USD, con una caída importante y una variación negativa del -28.49%.",
-      "justificacion": "La tendencia bajista es demasiado fuerte como para ignorarla, con una pérdida proyectada cercana al 30%. Mantener este token en este momento expone tu portafolio a un riesgo financiero muy elevado, siendo la venta la decisión más coherente."
-    },
-    {
-      "coin_id": "binance-coin",
-      "symbol": "BNB",
-      "recomendacion": "MANTENER",
-      "nivel_riesgo": "Bajo",
-      "tendencia": "ESTABLE",
-      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $767.9809 USD, con una mínima variación negativa del -0.38%.",
-      "justificacion": "BNB se comporta de manera sumamente estable, con cambios casi imperceptibles en su valor estimado. Si ya posees este activo, lo mejor es mantenerlo tranquilamente en tu cartera, ya que demuestra gran solidez sin grandes sobresaltos de riesgo a corto plazo."
+      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $626.28 USD, con una variación de -60.00%.",
+      "justificacion": "Este activo presenta una caída drástica y alarmante en su proyección de precio, lo que representa un riesgo extremadamente alto para cualquier inversor. Es totalmente desaconsejable mantener posiciones aquí en este momento debido a la fuerte presión a la baja."
     },
     {
       "coin_id": "tron",
@@ -126,17 +27,116 @@
       "recomendacion": "VENDER",
       "nivel_riesgo": "Medio",
       "tendencia": "BAJISTA",
-      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $0.3239 USD, con una variación negativa del -3.91%.",
-      "justificacion": "Tron registra una tendencia bajista clara para el corto plazo. Las condiciones de mercado actuales no favorecen una subida inminente, por lo que es preferible asegurar tus recursos y evitar el impacto de esta corrección de precio."
+      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $0.32 USD, con una variación de -3.91%.",
+      "justificacion": "El comportamiento del mercado apunta a un debilitamiento temporal de la moneda, reflejado en su tendencia bajista. No es el momento ideal para invertir capital fresco, y se sugiere precaución o reducir exposición hasta que muestre signos de recuperación."
     },
     {
-      "coin_id": "wrapped-beacon-eth",
-      "symbol": "WBETH",
+      "coin_id": "solana",
+      "symbol": "SOL",
       "recomendacion": "VENDER",
       "nivel_riesgo": "Medio",
       "tendencia": "BAJISTA",
-      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $2875.9988 USD, con una variación negativa del -2.96%.",
-      "justificacion": "Al estar ligado al ecosistema de Ethereum, su comportamiento refleja la misma debilidad temporal. Con una tendencia claramente bajista proyectada para mañana, las condiciones desaconsejan mantener posiciones abiertas si buscas proteger tu capital en el corto plazo."
+      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $118.52 USD, con una variación de -2.08%.",
+      "justificacion": "Aunque la caída es moderada, la tendencia bajista actual sugiere que el precio continuará cediendo terreno en el corto plazo. Conviene esperar en la línea lateral y observar si encuentra un soporte firme antes de considerar nuevas compras."
+    },
+    {
+      "coin_id": "ripple",
+      "symbol": "XRP",
+      "recomendacion": "VENDER",
+      "nivel_riesgo": "Medio",
+      "tendencia": "BAJISTA",
+      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $1.48 USD, con una variación de -2.84%.",
+      "justificacion": "El panorama a corto plazo para esta moneda muestra números rojos y una inclinación bajista persistente. No existen suficientes incentivos de mercado en este momento para respaldar una compra, por lo que lo más sensato es proteger el capital."
+    },
+    {
+      "coin_id": "binance-coin",
+      "symbol": "BNB",
+      "recomendacion": "MANTENER",
+      "nivel_riesgo": "Bajo",
+      "tendencia": "ESTABLE",
+      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $767.98 USD, con una variación de -0.38%.",
+      "justificacion": "La moneda se encuentra en una fase de estabilidad con cambios mínimos proyectados, lo que demuestra solidez frente a caídas mayores en el ecosistema. Si ya la tienes en tu cartera, lo mejor es mantenerla; si buscas entrar, puedes esperar un impulso más claro."
+    },
+    {
+      "coin_id": "wrapped-bitcoin",
+      "symbol": "WBTC",
+      "recomendacion": "COMPRAR",
+      "nivel_riesgo": "Bajo",
+      "tendencia": "ALCISTA",
+      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $84,922.53 USD, con una variación de 1.12%.",
+      "justificacion": "La tendencia alcista y las proyecciones positivas respaldan la confianza en este activo de gran peso en el mercado. Es un momento favorable para considerar la compra o incrementar participación, respaldado por un comportamiento general saludable y de bajo riesgo relativo."
+    },
+    {
+      "coin_id": "whitebit",
+      "symbol": "WBT",
+      "recomendacion": "VENDER",
+      "nivel_riesgo": "Alto",
+      "tendencia": "BAJISTA",
+      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $59.92 USD, con una variación de -28.49%.",
+      "justificacion": "La fuerte corrección negativa estimada refleja un riesgo elevado para los inversores a corto plazo. Las condiciones actuales del mercado desaconsejan mantener este activo, siendo prudente evitar mayores pérdidas retirando la inversión."
+    },
+    {
+      "coin_id": "rain",
+      "symbol": "RAIN",
+      "recomendacion": "COMPRAR",
+      "nivel_riesgo": "Medio",
+      "tendencia": "ALCISTA",
+      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $0.01 USD, con una variación de 1.71%.",
+      "justificacion": "A pesar de ser un activo de menor escala, muestra una tendencia alcista atractiva y un rendimiento positivo proyectado para el corto plazo. Puede representar una oportunidad interesante para diversificar, siempre administrando adecuadamente el riesgo."
+    },
+    {
+      "coin_id": "hyperliquid",
+      "symbol": "HYPE",
+      "recomendacion": "VENDER",
+      "nivel_riesgo": "Alto",
+      "tendencia": "BAJISTA",
+      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $53.10 USD, con una variación de -42.01%.",
+      "justificacion": "La marcada tendencia bajista y el desplome estimado en su valor sugieren una volatilidad peligrosa y poco margen de defensa para el inversor. Es altamente recomendable mantenerse alejado o deshacer posiciones para proteger el capital."
+    },
+    {
+      "coin_id": "ethereum",
+      "symbol": "ETH",
+      "recomendacion": "VENDER",
+      "nivel_riesgo": "Medio",
+      "tendencia": "BAJISTA",
+      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $2,629.07 USD, con una variación de -2.02%.",
+      "justificacion": "La principal altcoin del mercado experimenta un leve retroceso y una tendencia bajista que invita a la cautela. No es el mejor momento para inyectar nuevo capital, por lo que se recomienda esperar a que el mercado digiera la caída y recupere fuerzas."
+    },
+    {
+      "coin_id": "wrapped-steth",
+      "symbol": "WSTETH",
+      "recomendacion": "VENDER",
+      "nivel_riesgo": "Medio",
+      "tendencia": "BAJISTA",
+      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $3,222.12 USD, con una variación de -3.48%.",
+      "justificacion": "Al estar estrechamente vinculado al comportamiento de Ethereum, su tendencia bajista actual refleja una presión general de venta en el sector. Conviene mantenerse al margen hasta que el panorama técnico muestre señales claras de giro al alza."
+    },
+    {
+      "coin_id": "dogecoin",
+      "symbol": "DOGE",
+      "recomendacion": "COMPRAR",
+      "nivel_riesgo": "Alto",
+      "tendencia": "ALCISTA",
+      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $0.098 USD, con una variación de 0.68%.",
+      "justificacion": "A pesar de su conocida volatilidad, la proyección a corto plazo muestra un sesgo alcista moderado. Es una opción viable para inversores con mayor tolerancia al riesgo que busquen aprovechar pequeños movimientos positivos de especulación."
+    },
+    {
+      "coin_id": "bitcoin",
+      "symbol": "BTC",
+      "recomendacion": "COMPRAR",
+      "nivel_riesgo": "Bajo",
+      "tendencia": "ALCISTA",
+      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $84,868.79 USD, con una variación de 1.01%.",
+      "justificacion": "Bitcoin mantiene una dinámica favorable respaldada por una tendencia alcista constante y sólida. Es el activo más seguro del ecosistema cripto para invertir con confianza a mediano y largo plazo, siendo un pilar fundamental en cualquier cartera."
+    },
+    {
+      "coin_id": "staked-ether",
+      "symbol": "STETH",
+      "recomendacion": "VENDER",
+      "nivel_riesgo": "Medio",
+      "tendencia": "BAJISTA",
+      "resumen_ejecutivo": "Se proyecta un precio estimado para las próximas 24 horas de $2,665.10 USD, con una variación de -0.66%.",
+      "justificacion": "Aunque la variación negativa es pequeña, la tendencia bajista general del ecosistema Ethereum sugiere falta de impulso comprador a corto plazo. Es preferible esperar un mejor momento de entrada o mantener la liquidez disponible."
     }
   ]
 }
