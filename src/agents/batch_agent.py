@@ -29,15 +29,10 @@ def analizar_mercado_en_lote(lista_monedas: list):
     {json.dumps(lista_monedas, ensure_ascii=False, indent=2)}
 
     Instrucciones clave para tu análisis:
-    1. Analiza CADA UNA de las monedas de la lista anterior utilizando de forma estricta los campos "current_price" y "predicted_close_24h" provistos en los datos.
-    2. REGLA OBLIGATORIA SOBRE PRECIOS Y MÉTRICAS: En el "resumen_ejecutivo", DEBES mencionar obligatoriamente:
-       - El **precio actual de cierre** de la moneda (usando la clave "current_price").
-       - El **precio estimado o proyectado** para las próximas 24 horas (usando la clave "predicted_close_24h").
-       - El porcentaje de variación proyectado.
-       Siempre que menciones valores monetarios, incluye el símbolo correspondiente (por ejemplo: $2,629.07 USD). Nunca dejes números sueltos de dinero sin su símbolo.
+    1. Analiza CADA UNA de las monedas de la lista anterior utilizando la predicción provista en la clave "predicted_close_24h".
+    2. REGLA OBLIGATORIA SOBRE EL PRECIO ESTIMADO: En el "resumen_ejecutivo", DEBES mencionar obligatoriamente el precio estimado para las próximas 24 horas redactándolo de forma natural (por ejemplo: "De acuerdo con la cotización actual, se estima un precio para las próximas 24 horas de $X,XXX.XX USD"), acompañado del porcentaje de variación proyectado y el símbolo correspondiente a la divisa. Por consistencia temporal con la ventana de visualización en tiempo real, céntrate exclusivamente en la proyección futura.
     3. PROFUNDIDAD EN LA JUSTIFICACIÓN: En la "justificacion", ofrece un análisis educativo pero completo y orientado a la toma de decisiones de inversión. Explica en un aproximado de 3 a 5 líneas con claridad si las condiciones actuales del mercado (tendencia, sentimiento y proyección) respaldan o desaconsejan invertir, mantener o vender en este momento, detallando el porqué de forma transparente para el usuario.
     4. Tono y Claridad: Redacta de forma descriptiva y natural, orientada a que un usuario común entienda con precisión qué está pasando con su inversión.
-
     Devuelve OBLIGATORIAMENTE un arreglo JSON bajo la clave "dictamenes", donde cada objeto contenga la siguiente estructura exacta:
     [
       {{
