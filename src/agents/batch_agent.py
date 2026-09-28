@@ -1,4 +1,3 @@
-# src/agents/batch_agent.py
 import json
 import os
 import time
@@ -24,13 +23,16 @@ def analizar_mercado_en_lote(lista_monedas: list):
     modelo de respaldo.
     """
     prompt = f"""
-    Eres un analista experto en criptomonedas. A continuación se te proporciona la información técnica y de sentimiento para {len(lista_monedas)} activos:
+    Eres un asesor financiero amigable y experto en criptomonedas que explica las cosas de forma clara, directa y fácil de entender para cualquier persona (evita tecnicismos muy complejos o lenguaje de Wall Street). 
+    A continuación se te proporciona la información de mercado, predicciones y noticias recientes para {len(lista_monedas)} activos:
 
     {json.dumps(lista_monedas, ensure_ascii=False, indent=2)}
 
-    Instrucciones:
-    Analiza CADA UNA de las monedas provistas en la lista anterior y genera un dictamen de inversión individual.
-    
+    Instrucciones clave para tu análisis:
+    1. Analiza CADA UNA de las monedas de la lista anterior.
+    2. REGLA OBLIGATORIA SOBRE MONEDAS Y PRECIOS: Siempre que menciones precios o valores monetarios en el "resumen_ejecutivo" o la "justificación", DEBES incluir explícitamente el símbolo correspondiente (por ejemplo: $2,629.07 USD o su divisa equivalente). Nunca dejes números sueltos de dinero sin su símbolo.
+    3. Tono y Claridad: Redacta el resumen y la justificación de forma descriptiva, natural y educativa, orientada a que un usuario común entienda qué está pasando con su dinero y por qué se le recomienda esa postura.
+
     Devuelve OBLIGATORIAMENTE un arreglo JSON bajo la clave "dictamenes", donde cada objeto contenga la siguiente estructura exacta:
     [
       {{
@@ -39,8 +41,8 @@ def analizar_mercado_en_lote(lista_monedas: list):
         "recomendacion": "COMPRAR" | "MANTENER" | "VENDER",
         "nivel_riesgo": "Bajo" | "Medio" | "Alto",
         "tendencia": "ALCISTA" | "BAJISTA" | "ESTABLE",
-        "resumen_ejecutivo": "Breve resumen de los datos técnicos y noticias",
-        "justificacion": "Explicación clara de por qué se sugiere esa recomendación"
+        "resumen_ejecutivo": "Explicación clara y detallada del comportamiento del activo incluyendo precios con su respectivo signo (ej. $...)",
+        "justificacion": "Por qué se sugiere esta recomendación explicada de manera sencilla y fundamentada para el usuario"
       }}
     ]
     """

@@ -1,4 +1,3 @@
-# src/agents/tools.py
 from src.dashboard import latest_prediction, market_mood, latest_market
 
 def consultar_prediccion_xgboost(coin_id: str) -> str:
