@@ -23,7 +23,7 @@ on:
 
     # Horarios específicos adicionales para Gemini (00:00 y 15:00 hora de Lima)
     - cron: "0 5 * * *"    # 00:00 Lima (05:00 UTC)
-    - cron: "0 20 * * *"   # 15:00 Lima (20:00 UTC)    
+    - cron: "0 20 * * *"   # 15:00 Lima (20:00 UTC)     
 
 jobs:
   refresh:
@@ -34,7 +34,6 @@ jobs:
       MONGODB_URI: ${{ secrets.MONGODB_URI }}
       MONGODB_DB_NAME: ${{ secrets.MONGODB_DB_NAME }}
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-      COINSTATS_API_KEY: ${{ secrets.COINSTATS_API_KEY }}
 
     steps:
       - uses: actions/checkout@v4
@@ -46,24 +45,15 @@ jobs:
 
       - run: python -m pip install -r requirements.txt
 
-      # 1. Ejecutar la actualización completa del mercado, noticias y modelos de Machine Learning
-      - name: Run Data Refresh and ML Predictions
-        run: |
-          if [ "${{ github.event.inputs.daily }}" == "true" ]; then
-            python scripts/refresh.py --daily
-          else
-            python scripts/refresh.py
-          fi
-
-      # 2. Ejecución directa del Agente Gemini usando los datos recién actualizados en MongoDB
+      # Ejecución directa del Agente Gemini usando los datos de MongoDB
       - name: Run Gemini Batch Agent
         run: python -m src.agents.batch_agent
 
-      # 3. Guardar cambios del JSON en el repositorio para Streamlit
+      # Guardar cambios del JSON en el repositorio para Streamlit
       - name: Commit and push updated JSON
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add data/daily_recommendations.json
-          git commit -m "auto: update market data, predictions and Gemini recommendations [skip ci]" || exit 0
+          git commit -m "auto: update daily recommendations via Gemini [skip ci]" || exit 0
           git push
