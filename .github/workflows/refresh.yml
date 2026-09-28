@@ -21,10 +21,11 @@ on:
     - cron: "20 18 * * *"
       timezone: "America/Lima"
 
-    # Horarios específicos adicionales para Gemini (00:00 y 15:00 hora de Lima)
-    - cron: "0 5 * * *"    # 00:00 Lima (05:00 UTC)
-    - cron: "0 20 * * *"   # 15:00 Lima (20:00 UTC)     
-
+schedule:
+    # Horarios específicos actualizados (Hora de Lima / UTC)
+    - cron: "0 12 * * *"    # 07:00 AM Lima (12:00 UTC)
+    - cron: "0 21 * * *"    # 04:00 PM Lima (21:00 UTC)
+    - cron: "30 23 * * *"   # 06:30 PM Lima (23:30 UTC)
 jobs:
   refresh:
     runs-on: ubuntu-latest
