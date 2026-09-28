@@ -246,63 +246,83 @@ else:
 st.markdown("<br>", unsafe_allow_html=True)
 
 # =========================================================
-# 3. GRÁFICO HISTÓRICO Y PREDICCIÓN XGBOOST
+# 3. GRÁFICO XGBOOST Y ÚLTIMAS NOTICIAS (LAYOUT COLUMNAS)
 # =========================================================
-st.markdown(f"<div class='section-title'>Comportamiento Histórico y Predicción XGBoost</div>", unsafe_allow_html=True)
+c_chart, c_news = st.columns([1.8, 1], gap="large")
 
-hist = history(coin_id)
-pred = latest_prediction(coin_id)
+with c_chart:
+    st.markdown(f"<div class='section-title'>Comportamiento Histórico y Predicción XGBoost</div>", unsafe_allow_html=True)
+    hist = history(coin_id)
+    pred = latest_prediction(coin_id)
 
-if not hist.empty:
-    hist["date"] = pd.to_datetime(hist["date"], utc=True)
-    hist = hist.sort_values("date").tail(range_days)
-    
-    fig = go.Figure()
-    # Línea de precio real (Azul)
-    fig.add_trace(go.Scatter(
-        x=hist["date"], y=hist["price"], 
-        mode="lines", name="Precio Real", 
-        line=dict(color="#1E3A8A", width=2.5)
-    ))
-    
-    # Línea de predicción (Mostaza)
-    if pred:
-        last_date = hist["date"].max()
+    if not hist.empty:
+        hist["date"] = pd.to_datetime(hist["date"], utc=True)
+        hist = hist.sort_values("date").tail(range_days)
+        
+        fig = go.Figure()
+        # Línea de precio real (Azul)
         fig.add_trace(go.Scatter(
-            x=[last_date, pd.to_datetime(pred["target_time"], utc=True)],
-            y=[float(pred["current_price"]), float(pred["predicted_close_24h"])],
-            mode="lines+markers", name="Pronóstico XGBoost",
-            line=dict(dash="dash", color="#EAB308", width=3),
-            marker=dict(size=8)
+            x=hist["date"], y=hist["price"], 
+            mode="lines", name="Precio Real", 
+            line=dict(color="#1E3A8A", width=2.5)
         ))
-    
-    # Corrección de fondo, colores y eliminación de etiquetas extra
-    fig.update_layout(
-        template="plotly_white",
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(color="#0F172A"),
-        height=450, 
-        margin=dict(l=10, r=10, t=30, b=10),
-        hovermode="x unified",
-        showlegend=False, # Oculta la leyenda derecha para un look más limpio
-        xaxis=dict(
-            showgrid=False,
-            title="", # Quita la etiqueta del eje X
-            tickfont=dict(color="#64748B")
-        ), 
-        yaxis=dict(
-            showgrid=True, 
-            gridcolor="#E2E8F0",
-            title="", # Quita la etiqueta del eje Y
-            tickfont=dict(color="#64748B"),
-            zeroline=False
+        
+        # Línea de predicción (Mostaza)
+        if pred:
+            last_date = hist["date"].max()
+            fig.add_trace(go.Scatter(
+                x=[last_date, pd.to_datetime(pred["target_time"], utc=True)],
+                y=[float(pred["current_price"]), float(pred["predicted_close_24h"])],
+                mode="lines+markers", name="Pronóstico XGBoost",
+                line=dict(dash="dash", color="#EAB308", width=3),
+                marker=dict(size=8)
+            ))
+        
+        # Corrección de fondo, colores y eliminación de etiquetas extra
+        fig.update_layout(
+            template="plotly_white",
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(0,0,0,0)",
+            font=dict(color="#0F172A"),
+            height=450, 
+            margin=dict(l=10, r=10, t=30, b=10),
+            hovermode="x unified",
+            showlegend=False, # Oculta la leyenda derecha para un look más limpio
+            xaxis=dict(
+                showgrid=False,
+                title="", # Quita la etiqueta del eje X
+                tickfont=dict(color="#64748B")
+            ), 
+            yaxis=dict(
+                showgrid=True, 
+                gridcolor="#E2E8F0",
+                title="", # Quita la etiqueta del eje Y
+                tickfont=dict(color="#64748B"),
+                zeroline=False
+            )
         )
-    )
-    st.plotly_chart(fig, use_container_width=True)
-else:
-    st.info("Sin datos históricos.")
+        st.plotly_chart(fig, use_container_width=True)
+    else:
+        st.info("Sin datos históricos.")
 
+with c_news:
+    st.markdown(f"<div class='section-title'>Últimas Señales Detectadas</div>", unsafe_allow_html=True)
+    if not coin_news_df.empty:
+        latest = coin_news_df.sort_values("published_at", ascending=False).head(8)
+        for _, r in latest.iterrows():
+            score = float(r.get("sentiment_compound", 0))
+            color_badge = "🟢" if score > 0.05 else ("🔴" if score < -0.05 else "⚪")
+            st.markdown(
+                f'<div style="background-color:#FFFFFF; padding:10px; border-radius:8px; border:1px solid #E2E8F0; margin-bottom:10px; box-shadow: 0 1px 2px rgba(0,0,0,0.03);">'
+                f'<span style="font-size:0.8rem; font-weight:bold; color:#64748B;">{color_badge} {r["sentiment_label"]} ({score:+.2f})</span><br>'
+                f'<a href="{r["url"]}" target="_blank" style="color:#1E3A8A; font-weight:600; text-decoration:none; font-size:0.9rem;">{r["title"]}</a><br>'
+                f'<span style="font-size:0.75rem; color:#94A3B8;">{r["source"]} · {pd.to_datetime(r["published_at"]).strftime("%d %b %H:%M")}</span>'
+                f'</div>',
+                unsafe_allow_html=True
+            )
+    else:
+        st.info(f"No hay noticias recientes de {name}.")
+        
 # =========================================================
 # 4. ANÁLISIS DE SENTIMIENTO (SOLO GRÁFICO DE DONA FILTRADO)
 # =========================================================
