@@ -34,6 +34,7 @@ jobs:
       MONGODB_URI: ${{ secrets.MONGODB_URI }}
       MONGODB_DB_NAME: ${{ secrets.MONGODB_DB_NAME }}
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      COINSTATS_API_KEY: ${{ secrets.COINSTATS_API_KEY }}
 
     steps:
       - uses: actions/checkout@v4
