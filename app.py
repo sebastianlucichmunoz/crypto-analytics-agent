@@ -177,7 +177,7 @@ st.sidebar.caption("")
 # 1. DATOS  DE LA MONEDA
 # =========================================================
 st.markdown(f"<div align='center'><h2 style='color: #0F172A; font-weight: 800;'>Métricas en Tiempo Real: {name} ({symbol})</h2></div>", unsafe_allow_html=True)
-s
+
 coin_news_df = news_for_coin(coin_id, 250)
 if not coin_news_df.empty:
     coin_news_df["sentiment_compound"] = pd.to_numeric(coin_news_df["sentiment_compound"], errors="coerce")
