@@ -29,7 +29,12 @@ def extraer_datos_consolidados():
     for p in preds_raw:
         coin_id = p["_id"]
         current_price = float(p.get("current_price") or 0.0)
-        pred_close = float(p.get("predicted_close_24h") or 0.0)
+        
+        # Protegemos la conversión a float por si viene None de la base de datos
+        raw_pred_close = p.get("predicted_close_24h")
+        pred_close = float(raw_pred_close) if raw_pred_close is not None else 0.0
+        
+        # Calculamos el porcentaje de cambio proyectado a partir del precio actual y el estimado
         
         # Calculamos el porcentaje de cambio proyectado a partir del precio actual y el estimado
         if current_price > 0:
