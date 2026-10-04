@@ -167,9 +167,9 @@ name = selected["name"]
 
 range_days = st.sidebar.selectbox(
     "Histórico (Gráfico)",
-    [30, 90, 180, 365, 730],
+    [30, 90, 180, 365],
     index=3,
-    format_func=lambda x: f"{x} días" if x < 365 else ("1 año" if x == 365 else "2 años"),
+    format_func=lambda x: f"{x} días" if x < 365 else "1 año",
 )
 st.sidebar.caption("")
 
@@ -245,30 +245,43 @@ st.markdown("<br>", unsafe_allow_html=True)
 c_chart, c_news = st.columns([1.8, 1], gap="large")
 
 with c_chart:
-    st.markdown(f"<div class='section-title'>Comportamiento Histórico de la moneda</div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='section-title'>Comportamiento Histórico de la Moneda</div>", unsafe_allow_html=True)
     hist = history(coin_id)
-    pred = latest_prediction(coin_id)
+    pred_doc = latest_prediction(coin_id) # Documento completo de predicción
 
     if not hist.empty:
         hist["date"] = pd.to_datetime(hist["date"], utc=True)
         hist = hist.sort_values("date").tail(range_days)
         
         fig = go.Figure()
+        # Línea de Precio Real
         fig.add_trace(go.Scatter(
             x=hist["date"], y=hist["price"], 
             mode="lines", name="Precio Real", 
             line=dict(color="#1E3A8A", width=2.5)
         ))
         
-        if pred:
-            last_date = hist["date"].max()
-            fig.add_trace(go.Scatter(
-                x=[last_date, pd.to_datetime(pred["target_time"], utc=True)],
-                y=[float(pred["current_price"]), float(pred["predicted_close_24h"])],
-                mode="lines+markers", name="Pronóstico XGBoost",
-                line=dict(dash="dash", color="#EAB308", width=3),
-                marker=dict(size=8)
-            ))
+        # Si existen predicciones a 15 días, las graficamos como proyección
+        if pred_doc and "predictions_15d" in pred_doc:
+            preds_array = pred_doc["predictions_15d"]
+            if preds_array:
+                pred_dates = [pd.to_datetime(p["target_time"], utc=True) for p in preds_array]
+                pred_prices = [float(p["predicted_close"]) for p in preds_array]
+                
+                # Unimos con el último punto real para dar continuidad visual
+                last_real_date = hist["date"].max()
+                last_real_price = float(hist["price"].iloc[-1])
+                
+                pred_dates.insert(0, last_real_date)
+                pred_prices.insert(0, last_real_price)
+
+                fig.add_trace(go.Scatter(
+                    x=pred_dates,
+                    y=pred_prices,
+                    mode="lines+markers", name="Pronóstico IA (15d)",
+                    line=dict(dash="dash", color="#EAB308", width=3),
+                    marker=dict(size=6)
+                ))
     
         fig.update_layout(
             template="plotly_white",
@@ -278,7 +291,7 @@ with c_chart:
             height=450, 
             margin=dict(l=10, r=10, t=30, b=10),
             hovermode="x unified",
-            showlegend=False, 
+            showlegend=True, 
             xaxis=dict(
                 showgrid=False,
                 title="", 
@@ -286,7 +299,7 @@ with c_chart:
             ), 
             yaxis=dict(
                 showgrid=True, 
-                gridcolor="#E2E8F0",
+                gridcolor="#B2B5BA",
                 title="", 
                 tickfont=dict(color="#64748B"),
                 zeroline=False

@@ -55,7 +55,7 @@ def refresh_coinstats():
 
 def resolve_mobula():
     db = get_db()
-    client = MobulaClient()
+    client = MobulaClient() # Nota: Mantiene el nombre de la clase por compatibilidad
     rows = list(db.assets.find(
         {"active_top_n": True},
         {"_id": 0, "coin_id": 1, "symbol": 1, "name": 1, "mobula_id": 1}
@@ -69,21 +69,24 @@ def resolve_mobula():
             if not match or match.get("id") is None:
                 failed.append(a["coin_id"])
                 continue
-            details = client.asset_details(match["id"])
-            asset = details.get("asset", {}) or {}
+            
+            asset_id = str(match["id"]) # ID en texto (ej. "bitcoin")
+            details = client.asset_details(asset_id)
+            market_data = details.get("market_data", {}) or {}
+            
             db.assets.update_one(
                 {"coin_id": a["coin_id"]},
                 {"$set": {
-                    "mobula_id": int(match["id"]),
-                    "mobula_asset": asset,
-                    "mobula_tokens": details.get("tokens", []) or [],
-                    "is_stablecoin": bool(asset.get("isStablecoin", False)),
-                    "mobula_native_chain_id": asset.get("nativeChainId"),
+                    "mobula_id": asset_id, # Guardamos como string
+                    "mobula_asset": details,
+                    "mobula_tokens": [],
+                    "is_stablecoin": False, # O lógica para stablecoins si se requiere
+                    "mobula_native_chain_id": None,
                     "mobula_resolved_at": datetime.now(timezone.utc),
                 }}
             )
             resolved += 1
-        except Exception:
+        except Exception as e:
             failed.append(a["coin_id"])
     return {"resolved": resolved, "failed": failed}
 
@@ -96,31 +99,35 @@ def refresh_mobula():
     ))
     if not assets:
         return 0
-    mapping = {int(x["mobula_id"]): x["coin_id"] for x in assets}
-    details = client.asset_details_batch(list(mapping.keys()))
+    
+    mapping = {str(x["mobula_id"]): x["coin_id"] for x in assets}
+    details_list = client.asset_details_batch(list(mapping.keys()))
     now = datetime.now(timezone.utc)
     docs = []
-    for item in details:
-        asset = item.get("asset", {}) or {}
-        mid = asset.get("id")
-        if mid is None or int(mid) not in mapping:
+    
+    for item in details_list:
+        mid = item.get("id")
+        if mid is None or str(mid) not in mapping:
             continue
-        coin_id = mapping[int(mid)]
+        coin_id = mapping[str(mid)]
+        market_data = item.get("market_data", {}) or {}
+        price = market_data.get("current_price", {}).get("usd", 0)
+        market_cap = market_data.get("market_cap", {}).get("usd", 0)
+        
         db.assets.update_one({"coin_id": coin_id}, {"$set": {
-            "mobula_asset": asset,
-            "mobula_tokens": item.get("tokens", []) or [],
-            "is_stablecoin": bool(asset.get("isStablecoin", False)),
+            "mobula_asset": item,
+            "mobula_tokens": [],
             "mobula_updated_at": now,
         }})
         docs.append({
             "coin_id": coin_id,
-            "mobula_id": int(mid),
-            "name": asset.get("name"),
-            "symbol": asset.get("symbol"),
-            "rank": asset.get("rank"),
-            "price": asset.get("priceUSD"),
-            "market_cap": asset.get("marketCapUSD"),
-            "is_stablecoin": bool(asset.get("isStablecoin", False)),
+            "mobula_id": str(mid),
+            "name": item.get("name"),
+            "symbol": item.get("symbol"),
+            "rank": item.get("market_cap_rank"),
+            "price": price,
+            "market_cap": market_cap,
+            "is_stablecoin": False,
             "source": "mobula",
             "observed_at": now,
         })
