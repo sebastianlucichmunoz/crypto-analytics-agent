@@ -96,7 +96,7 @@ def extraer_datos_consolidados():
     # os.makedirs("data", exist_ok=True)
     # with open("data/latest_market_data.json", "w", encoding="utf-8") as f:
     #     json.dump(datos_finales, f, ensure_ascii=False, indent=2)
-
+    #
     # 2. Guardar o actualizar directamente en la colección de MongoDB
     try:
         for item in datos_finales:
