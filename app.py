@@ -19,7 +19,6 @@ from src.dashboard import (
     latest_prediction, latest_metrics, market_mood, load_gemini_recommendations
 )
 
-# Configuración de página
 st.set_page_config(
     page_title="Crypto Analytics Dashboard",
     page_icon="📊",
@@ -254,21 +253,18 @@ with c_chart:
         hist = hist.sort_values("date").tail(range_days)
         
         fig = go.Figure()
-        # Línea de Precio Real
         fig.add_trace(go.Scatter(
             x=hist["date"], y=hist["price"], 
             mode="lines", name="Precio Real", 
             line=dict(color="#1E3A8A", width=2.5)
         ))
         
-        # Si existen predicciones a 15 días, las graficamos como proyección
         if pred_doc and "predictions_15d" in pred_doc:
             preds_array = pred_doc["predictions_15d"]
             if preds_array:
                 pred_dates = [pd.to_datetime(p["target_time"], utc=True) for p in preds_array]
                 pred_prices = [float(p["predicted_close"]) for p in preds_array]
                 
-                # Unimos con el último punto real para dar continuidad visual
                 last_real_date = hist["date"].max()
                 last_real_price = float(hist["price"].iloc[-1])
                 

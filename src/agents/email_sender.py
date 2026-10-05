@@ -7,7 +7,6 @@ from src.db import get_db
 def enviar_alertas_pendientes():
     db = get_db()
     
-    # 1. Buscamos el registro más reciente de la ejecución del agente en la colección 'notification_logs'
     ultimo_log = db.notification_logs.find_one(sort=[("fecha_ejecucion", -1)])
     
     if not ultimo_log or "resultados" not in ultimo_log:
@@ -15,8 +14,7 @@ def enviar_alertas_pendientes():
         return
 
     resultados = ultimo_log["resultados"]
-    
-    # Parámetros del servidor SMTP
+
     smtp_server = os.getenv("SMTP_SERVER", "smtp.gmail.com")
     port_env = os.getenv("SMTP_PORT")
     smtp_port = int(port_env) if port_env and port_env.strip() else 587
@@ -36,7 +34,6 @@ def enviar_alertas_pendientes():
 
         enviados_count = 0
 
-        # 2. Iterar sobre los resultados y enviar solo si enviar_correo es True
         for reg in resultados:
             if reg.get("enviar_correo") is True:
                 destinatario = reg.get("email")
@@ -45,13 +42,11 @@ def enviar_alertas_pendientes():
                 orden = reg.get("orden_inversion")
                 watchlist = ", ".join(reg.get("watchlist", []))
 
-                # Construir el mensaje del correo de manera elegante
                 msg = MIMEMultipart("alternative")
                 msg["Subject"] = f"🔔 Alerta Personalizada de Criptomonedas: {orden}"
                 msg["From"] = smtp_user
                 msg["To"] = destinatario
 
-                # Cuerpo del correo en HTML limpio y profesional
                 html_content = f"""
                 <html>
                   <body style="font-family: Arial, sans-serif; color: #333333; line-height: 1.6;">

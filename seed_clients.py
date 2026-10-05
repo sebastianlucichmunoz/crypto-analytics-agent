@@ -16,9 +16,9 @@ def seed_test_clients():
         }, 
         {
             "name": "María Gómez",
-            "email": "sebastianmarlucichmunoz@example.com",
+            "email": "sebastianmarlucichmunoz@gmail.com",
             "watchlist": ["solana", "cardano"],
-            "preferencia": "No me importan las pequeñas bajadas, solo quiero saber si mi moneda se desploma para vender a tiempo.",
+            "preferencia": "Sobre mis criptomonedas quiero conocer cualquier variación importante, en especial para Solana.",
             "active": True,
             "created_at": datetime.utcnow()
         }

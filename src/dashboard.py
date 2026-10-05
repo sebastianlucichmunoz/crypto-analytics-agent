@@ -27,20 +27,12 @@ def market_snapshot_history(hours=72):
     ).sort("observed_at",1))
     return pd.DataFrame(rows)
 
-# def history(coin_id):
-#     rows = list(get_db().price_history.find(
-#         {"coin_id":coin_id,"source":"mobula_asset_price_history"},
-#         {"_id":0,"date":1,"price":1}
-#     ).sort("date",1))
-#     return pd.DataFrame(rows)
 def history(coin_id: str):
     db = get_db()
-    # Consultamos la colección price_history filtrando por coin_id
     cursor = db.price_history.find({"coin_id": coin_id})
     df = pd.DataFrame(list(cursor))
     
     if not df.empty:
-        # Aseguramos que la fecha y el precio tengan el formato correcto para Plotly
         df["date"] = pd.to_datetime(df["date"])
         df["price"] = pd.to_numeric(df["price"], errors="coerce")
         df = df.sort_values("date")

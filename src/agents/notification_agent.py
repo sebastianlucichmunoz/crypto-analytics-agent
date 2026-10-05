@@ -10,33 +10,29 @@ def ejecutar_agente_notificaciones():
     print("-> El script del agente se ha iniciado correctamente...")
     db = get_db()
     
-    # 1. Obtener clientes activos
     clientes = list(db.clients.find({"active": True}))
     if not clientes:
         print("No hay clientes activos para evaluar.")
         return
 
-    # 2. Obtener las monedas únicas de las watchlists
     monedas_requeridas = set()
     for cliente in clientes:
         for moneda in cliente.get("watchlist", []):
             monedas_requeridas.add(moneda)
 
-# ... dentro de tu función ejecutar_agente_notificaciones():
     resumen_mercado = {}
     for coin in monedas_requeridas:
         pred = db.predictions.find_one({"coin_id": coin}, sort=[("predicted_at", -1)])
         if pred and "predictions_15d" in pred:
             forecast_data = pred["predictions_15d"]
             
-            # Generar los textos asociando el día calendario real
             dias_con_fecha = []
             hoy = datetime.now()
             for i, p in enumerate(forecast_data):
-                # Calculamos la fecha sumando 'i' días a la fecha de hoy
                 fecha_futura = hoy + timedelta(days=i)
-                fecha_str = fecha_futura.strftime("%d de %B") # Ejemplo: "19 de October" (o en español si configuras locale)
-                precio = p.get('price', 0)
+                fecha_str = fecha_futura.strftime("%d de %B")
+                
+                precio = p.get('predicted_close', 0)
                 dias_con_fecha.append(f"{fecha_str}: ${precio:.2f}")
             
             dias_resumen = ", ".join(dias_con_fecha)
@@ -44,20 +40,6 @@ def ejecutar_agente_notificaciones():
         else:
             resumen_mercado[coin] = "Sin datos de predicción disponibles actualmente."
 
-
-    # # 3. Recopilar predicciones a 15 días desde MongoDB
-    # resumen_mercado = {}
-    # for coin in monedas_requeridas:
-    #     pred = db.predictions.find_one({"coin_id": coin}, sort=[("predicted_at", -1)])
-    #     if pred and "predictions_15d" in pred:
-    #         forecast_data = pred["predictions_15d"]
-    #         total_dias = len(forecast_data)
-    #         dias_resumen = ", ".join([f"Día {i+1}: ${p.get('price', 0):.2f}" for i, p in enumerate(forecast_data)])
-    #         resumen_mercado[coin] = f"Tendencia general: {pred.get('trend', 'N/A')} | Variación estimada: {pred.get('predicted_change_pct', 0)}% | Detalle a {total_dias} días: {dias_resumen}"
-    #     else:
-    #         resumen_mercado[coin] = "Sin datos de predicción disponibles actualmente."
-
-    # 4. Preparar el payload de clientes
     payload_clientes = []
     for cliente in clientes:
         payload_clientes.append({
@@ -92,7 +74,6 @@ def ejecutar_agente_notificaciones():
     response = None
     modelo_usado = None
 
-    # 5. Iterar sobre los modelos de respaldo (Fallback Strategy)
     for modelo in MODELOS_A_PROBAR:
         try:
             print(f"Intentando conectar con el modelo: {modelo}...")
@@ -113,7 +94,6 @@ def ejecutar_agente_notificaciones():
     print(f"Respuesta obtenida usando el modelo: {modelo_usado}")
     
     try:
-        # Limpiar la respuesta de la IA por si trae bloques de código markdown ```json ... ```
         raw_text = response.text.strip()
         if raw_text.startswith("```json"):
             raw_text = raw_text[7:]
@@ -121,10 +101,8 @@ def ejecutar_agente_notificaciones():
             raw_text = raw_text[:-3]
         
         data_resultado = json.loads(raw_text.strip())
-        
-        # 6. Cruzar los resultados de la IA con los datos del cliente (Email, Watchlist, ID) y guardar en MongoDB
+
         resultados_finales = []
-        # Creamos un diccionario rápido para buscar al cliente por su ID de texto
         clientes_dict = {str(c["_id"]): c for c in clientes}
 
         for res in data_resultado.get("resultados", []):
@@ -144,7 +122,6 @@ def ejecutar_agente_notificaciones():
             }
             resultados_finales.append(registro_procesado)
 
-        # Guardar el bloque completo en una colección de logs en MongoDB
         log_documento = {
             "fecha_ejecucion": datetime.utcnow(),
             "modelo": modelo_usado,
@@ -153,7 +130,6 @@ def ejecutar_agente_notificaciones():
         db.notification_logs.insert_one(log_documento)
         print("¡Resultados guardados exitosamente en la base de datos (colección: notification_logs)!")
 
-        # 7. Simulación o preparación práctica para el envío de correos
         print("\n--- RESUMEN DE ENVÍO DE CORREOS ---")
         for reg in resultados_finales:
             if reg["enviar_correo"]:
@@ -168,109 +144,5 @@ def ejecutar_agente_notificaciones():
 if __name__ == "__main__":
     ejecutar_agente_notificaciones()
 
-#python -m src.agents.notification_agent
 
 
-
-# import os
-# import json
-# from google import genai
-# from google.genai.errors import APIError # O capturar excepciones generales
-# from src.db import get_db
-
-# print("-> El script del agente se ha iniciado correctamente...")
-
-# MODELOS_A_PROBAR = ["gemini-3.5-flash", "gemini-3.5-flash-lite"]
-
-# def ejecutar_agente_notificaciones():
-#     db = get_db()
-    
-#     # 1. Obtener clientes activos
-#     clientes = list(db.clients.find({"active": True}))
-#     if not clientes:
-#         print("No hay clientes activos para evaluar.")
-#         return
-
-#     # 2. Obtener las monedas únicas de las watchlists
-#     monedas_requeridas = set()
-#     for cliente in clientes:
-#         for moneda in cliente.get("watchlist", []):
-#             monedas_requeridas.add(moneda)
-
-# # 3. Recopilar predicciones a 15 días desde la estructura real de MongoDB
-#     resumen_mercado = {}
-#     for coin in monedas_requeridas:
-#         # Buscamos la predicción más reciente que coincida con el coin_id (ej. "bitcoin", "ethereum")
-#         pred = db.predictions.find_one({"coin_id": coin}, sort=[("predicted_at", -1)])
-        
-#         if pred and "predictions_15d" in pred:
-#             forecast_data = pred["predictions_15d"]
-#             total_dias = len(forecast_data)
-            
-#             # Construimos el resumen legible para la IA usando los datos reales de predictions_15d
-#             dias_resumen = ", ".join([f"Día {i+1}: ${p.get('price', 0):.2f}" for i, p in enumerate(forecast_data)])
-#             resumen_mercado[coin] = f"Tendencia general: {pred.get('trend', 'N/A')} | Variación estimada: {pred.get('predicted_change_pct', 0)}% | Detalle a {total_dias} días: {dias_resumen}"
-#         else:
-#             resumen_mercado[coin] = "Sin datos de predicción disponibles actualmente."
-
-
-#     # 4. Preparar el payload de clientes
-#     payload_clientes = []
-#     for cliente in clientes:
-#         payload_clientes.append({
-#             "cliente_id": str(cliente["_id"]),
-#             "nombre": cliente["name"],
-#             "email": cliente["email"],
-#             "watchlist": cliente["watchlist"],
-#             "preferencia": cliente["preferencia"]
-#         })
-
-#     prompt_sistema = f"""
-#     Eres un asesor financiero algorítmico experto en criptomonedas.
-#     Analiza el siguiente resumen de mercado a 15 días para las monedas de los clientes y evalúa sus preferencias individuales.
-    
-#     Resumen de Mercado por Moneda:
-#     {json.dumps(resumen_mercado, ensure_ascii=False)}
-
-#     Lista de Clientes y Preferencias:
-#     {json.dumps(payload_clientes, ensure_ascii=False)}
-
-#     INSTRUCCIONES ESTRICTAS:
-#     Para cada cliente, determina si se debe enviar una alerta comparando los movimientos de sus monedas con su campo "preferencia".
-#     Retorna ÚNICAMENTE un objeto JSON válido con una lista llamada "resultados" que contenga:
-#     - cliente_id
-#     - enviar_correo (booleano: true o false)
-#     - resumen_personalizado (texto breve explicando el comportamiento de su moneda según su perfil)
-#     - orden_inversion (texto corto: "Invertir", "Vender", o "Mantener posición")
-#     """
-
-#     client_ai = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
-#     response = None
-#     modelo_usado = None
-
-#     # 5. Iterar sobre los modelos de respaldo (Fallback Strategy)
-#     for modelo in MODELOS_A_PROBAR:
-#         try:
-#             print(f"Intentando conectar con el modelo: {modelo}...")
-#             response = client_ai.models.generate_content(
-#                 model=modelo,
-#                 contents=prompt_sistema
-#             )
-#             modelo_usado = modelo
-#             print(f"¡Éxito al conectar con {modelo}!")
-#             break  # Si responde bien, rompemos el ciclo y no probamos los demás
-#         except Exception as e:
-#             print(f"Fallo con el modelo {modelo}: {e}. Intentando con el siguiente...")
-
-#     if not response:
-#         print("Error crítico: Ninguno de los modelos en la lista pudo responder.")
-#         return
-
-#     print(f"Respuesta obtenida usando el modelo: {modelo_usado}")
-#     print(response.text)
-
-
-
-
-# if __name__ == "__main__":
-#     ejecutar_agente_notificaciones()
