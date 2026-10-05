@@ -29,7 +29,7 @@ jobs:
       SMTP_USER: ${{ secrets.SMTP_USER }}
       SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
       TOP_N: "20"
-      HISTORY_DAYS: "730"
+      HISTORY_DAYS: "365"
       MODEL_MIN_ROWS: "180"
 
     steps:
