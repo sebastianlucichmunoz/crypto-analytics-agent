@@ -22,6 +22,7 @@ jobs:
       MONGODB_DB_NAME: ${{ secrets.MONGODB_DB_NAME }}
       COINSTATS_API_KEY: ${{ secrets.COINSTATS_API_KEY }}
       MOBULA_API_KEY: ${{ secrets.MOBULA_API_KEY }}
+      COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
       SMTP_PORT: ${{ secrets.SMTP_PORT }}
